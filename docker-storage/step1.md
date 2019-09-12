@@ -10,7 +10,10 @@ Topics covered:
 - How do I view detailed info on a volume [docker inspect]
 
 
-"Docker has two options for containers to store files in the host machine, so that the files are persisted even after the container stops: volumes, and bind mounts. If you’re running Docker on Linux you can also use a tmpfs mount. If you’re running Docker on Windows you can also use a named pipe."
+#### TODO: add in the pictures 
+
+
+__Docker has two options for containers to store files in the host machine, so that the files are persisted even after the container stops: volumes, and bind mounts. If you’re running Docker on Linux you can also use a tmpfs mount. If you’re running Docker on Windows you can also use a named pipe.__
 
 
 Unlike a bind mount, you can create and manage volumes outside the scope of any container.
