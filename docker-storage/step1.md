@@ -1,4 +1,4 @@
-### Using Docker Volumes
+### Using Docker Storage
 
 Docker docs: https://docs.docker.com/storage/
 
