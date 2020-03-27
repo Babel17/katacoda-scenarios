@@ -43,9 +43,11 @@ Disadvantages of tmpfs mount
 - only available if you're running Docker on Linux
 
 Run docker with tmpfs in container /app directory
+
 `docker run -d -it --rm --name tmptest --mount type=tmpfs,destination=/app nginx:latest`{{execute}}
 
 Inspect the container:
+
 `docker inspect tmptest -f "{{json .Mounts}}" | jq`{{execute}}
 
 `docker exec tmptest df -h`{{execute}}
@@ -53,4 +55,5 @@ Inspect the container:
 Stop the container:
 
 `docker container stop tmptest `{{execute}}
+
 ----
