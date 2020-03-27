@@ -70,26 +70,27 @@ Note that the volume still exists even though the container has gone:
 # Other Docker Volume Examples
 
 For example, the following creates a tmpfs volume called tmpfsvol with a size of 100 megabyte and uid of 1000.
-
+```
 docker volume create --driver local \
     --opt type=tmpfs \
     --opt device=tmpfs \
     --opt o=size=100m,uid=1000 \
     tmpfsvol
+```
 
 Another example that uses btrfs:
-
+```
 docker volume create --driver local \
     --opt type=btrfs \
     --opt device=/dev/sda2 \
     btrfsvol
-
+```
 Another example that uses nfs to mount the /path/to/dir in rw mode from 192.168.1.1:
-
+```
 docker volume create --driver local \
     --opt type=nfs \
     --opt o=addr=192.168.1.1,rw \
     --opt device=:/path/to/dir \
     nfsvol
- 
+```
 ----
