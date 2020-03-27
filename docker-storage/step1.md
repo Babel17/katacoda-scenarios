@@ -19,6 +19,8 @@ Docker has three options for containers to store files in the host machine so th
 
 If you’re running Docker on Linux you can also use a tmpfs mount. If you’re running Docker on Windows you can also use a named pipe.
 
+Be aware that volumes are the approach recommended by Docker.
+
 Unlike a bind mount, you can create and manage volumes outside the scope of any container.
 
 # Docker Volumes
@@ -42,7 +44,9 @@ Remove a volume:
 
 `docker volume rm my-vol`{{execute}}
 
-`docker run -d --name devtest --mount source=myvol2,target=/app nginx:latest`{{execute}}
+Create a volume when starting a container:
+
+`docker run -d --rm --name devtest --mount source=myvol2,target=/app nginx:latest`{{execute}}
 
 Using docker inspect devtest to verify that the volume was created and mounted correctly. Look for the Mounts section:
 
@@ -50,11 +54,15 @@ Using docker inspect devtest to verify that the volume was created and mounted c
 
 This shows that the mount is a volume, it shows the correct source and destination, and that the mount is read-write.
 
-Stop the container and remove the volume. Note volume removal is a separate step.
+`docker exec devtest df -h`{{execute}}
+
+Stop the container and remove the volume.
 
 `docker container stop devtest`{{execute}}
 
-`docker container rm devtest`{{execute}}
+Note that the volume still exists even though the container has gone:
+
+`docker volume ls`{{execute}}
 
 `docker volume rm myvol2`{{execute}}
  

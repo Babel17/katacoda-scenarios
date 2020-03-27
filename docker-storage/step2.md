@@ -2,7 +2,7 @@
 
 Bind mounts have been around since the early days of Docker. 
 
-Bind mounts have limited functionality compared to volumes.
+Bind mounts have limited functionality compared to volumes. They are not Docker objects.
 
 When you use a bind mount, a file or directory on the host machine is mounted into a container. The file or directory is referenced by its full or relative path on the host machine. 
 
@@ -20,18 +20,17 @@ With the mount option we are required to create the mount point upfront
 
 Start a container with a bind mount
 
-`docker run -d -it --name devtest --mount type=bind,source="$(pwd)"/target,target=/app nginx:latest`{{execute}}
+`docker run -d -it --rm --name devtest --mount type=bind,source="$(pwd)"/target,target=/app nginx:latest`{{execute}}
 
 Using docker inspect devtest command to verify that the bind mount was created correctly.
 
 `docker inspect devtest -f "{{json .Mounts}}" | jq`{{execute}}
 
+`docker exec devtest df -h`{{execute}}
+
 Stop the container:
 
 `docker container stop devtest`{{execute}}
-
-`docker container rm devtest`{{execute}}
-
 
 #### Docker tmpfs mounts
 
@@ -44,7 +43,14 @@ Disadvantages of tmpfs mount
 - only available if you're running Docker on Linux
 
 Run docker with tmpfs in container /app directory
-`docker run -d -it --name tmptest --mount type=tmpfs,destination=/app nginx:latest`{{execute}}
+`docker run -d -it --rm --name tmptest --mount type=tmpfs,destination=/app nginx:latest`{{execute}}
 
+Inspect the container:
+`docker inspect tmptest -f "{{json .Mounts}}" | jq`{{execute}}
 
+`docker exec tmptest df -h`{{execute}}
+
+Stop the container:
+
+`docker container stop tmptest `{{execute}}
 ----
