@@ -9,7 +9,7 @@ Topics covered:
 - What are the different types of Docker Volumes?
 - How do I view detailed info on a volume [docker inspect]
 ----
-![Volumes](./types-of-mounts-bind.png?raw=true "Title")
+# Introduction
 
 Docker has three options for containers to store files in the host machine so that the files are persisted even after the container stops: 
 
@@ -65,5 +65,31 @@ Note that the volume still exists even though the container has gone:
 `docker volume ls`{{execute}}
 
 `docker volume rm myvol2`{{execute}}
+
+----
+# Other Docker Volume Examples
+
+For example, the following creates a tmpfs volume called tmpfsvol with a size of 100 megabyte and uid of 1000.
+
+docker volume create --driver local \
+    --opt type=tmpfs \
+    --opt device=tmpfs \
+    --opt o=size=100m,uid=1000 \
+    tmpfsvol
+
+Another example that uses btrfs:
+
+docker volume create --driver local \
+    --opt type=btrfs \
+    --opt device=/dev/sda2 \
+    btrfsvol
+
+Another example that uses nfs to mount the /path/to/dir in rw mode from 192.168.1.1:
+
+docker volume create --driver local \
+    --opt type=nfs \
+    --opt o=addr=192.168.1.1,rw \
+    --opt device=:/path/to/dir \
+    nfsvol
  
 ----
